@@ -22,10 +22,10 @@
     $ pip install -r requirements.txt
     (virtualenv / pyvenv 사용을 추천합니다.)
     $ cd ridibooks
-    $ python booklist\_parser.py
+    $ python booklist_parser.py
       책의 고유번호를 입력해주세요: (10자리 책 번호를 입력해주세요)
       연재본의 링크가 들어있는 txt파일이 생성됩니다.
-    $ python contents\_parser.py
+    $ python contents_parser.py
       Input your RIDI ID: (리디북스 아이디 입력)
       Input your RIDI PW: (리디북스 비밀번호 입력)
       Input booknumber: (책 번호 입력)
