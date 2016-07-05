@@ -1,0 +1,5 @@
+beautifulsoup4==4.4.1
+bs4==0.0.1
+requests==2.10.0
+selenium==2.53.6
+wget==3.2
