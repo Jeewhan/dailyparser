@@ -4,6 +4,28 @@ from time import sleep
 
 
 def get_content(user_id, user_pw, booknumber):
+    #func get_htmls : get rendered html from firefox, retries 2 times for slow networks.
+    def get_htmls(url):
+        try:
+            driver.get(url)
+            sleep(1)  # give time to browser for rendering texts.
+            driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
+            htmls = driver.find_elements_by_class_name('chapter')
+        except: #if texts aren't loaded yet.
+            try:
+                driver.get(url)
+                sleep(2)
+                driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
+                htmls = driver.find_elements_by_class_name('chapter')
+            except:
+                input('로그인이 풀렸거나 구매하지 않은 책입니다. 계속하시려면 Return을 누르세요')
+                driver.get(url)
+                sleep(2)
+                driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
+                htmls = driver.find_elements_by_class_name('chapter')
+        return htmls
+
+
     #driver open with Firefox
     driver = webdriver.Firefox()
     base_url = "http://ridibooks.com/"
@@ -24,22 +46,10 @@ def get_content(user_id, user_pw, booknumber):
 
     for book in book_list:
         url = str(book).replace('\n','')
-        driver.get(url)
-        sleep(1)
-        try:
-            htmls = driver.find_elements_by_class_name('chapter')
-        except:
-            try:
-                driver.get(url)
-                sleep(2)
-                htmls = driver.find_elements_by_class_name('chapter')
-            except:
-                input('로그인이 풀렸거나 구매하지 않은 책입니다. 계속하시려면 Return을 누르세요')
-                driver.get(url)
-                sleep(2)
-                htmls = driver.find_elements_by_class_name('chapter')
+        htmls = get_htmls(url)
         for html in htmls:
-            f.write(html.text+'\n{}\n'.format('-'*10))
+            f.write(html.text + '\n{}\n'.format('-' * 10))
+
 
     f.close()
 
