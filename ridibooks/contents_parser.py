@@ -27,19 +27,19 @@ def get_content(user_id, user_pw, booknumber):
         driver.get(url)
         sleep(1)
         try:
-            html = driver.find_element_by_id('ridi_c1')
+            htmls = driver.find_elements_by_class_name('chapter')
         except:
             try:
                 driver.get(url)
                 sleep(2)
-                html = driver.find_element_by_id('ridi_c1')
+                htmls = driver.find_elements_by_class_name('chapter')
             except:
-                input('계속')
+                input('로그인이 풀렸거나 구매하지 않은 책입니다. 계속하시려면 Return을 누르세요')
                 driver.get(url)
-                sleep(5)
-                html = driver.find_element_by_id('ridi_c1')
-        html = html.text
-        f.write(html+'\n{}\n'.format('-'*10))
+                sleep(2)
+                htmls = driver.find_elements_by_class_name('chapter')
+        for html in htmls:
+            f.write(html.text+'\n{}\n'.format('-'*10))
 
     f.close()
 
@@ -51,4 +51,3 @@ if __name__ == "__main__":
     user_pw = input('Input your RIDI PW: ')
     booknumber = input('Input booknumber: ')
     get_content(user_id, user_pw, booknumber)
-    print("ENDED")
