@@ -5,24 +5,22 @@ from time import sleep
 
 def get_content(user_id, user_pw, booknumber):
     #func get_htmls : get rendered html from firefox, retries 2 times for slow networks.
-    def get_htmls(url):
-        try:
-            driver.get(url)
-            sleep(1)  # give time to browser for rendering texts.
-            driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
-            htmls = driver.find_elements_by_tag_name('p')
-        except: #if texts aren't loaded yet.
-            try:
-                driver.get(url)
-                sleep(2)
-                driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
-                htmls = driver.find_elements_by_tag_name('p')
-            except:
-                input('로그인이 풀렸거나 구매하지 않은 책입니다. 계속하시려면 Return을 누르세요')
-                driver.get(url)
-                sleep(2)
-                driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
-                htmls = driver.find_elements_by_tag_name('p')
+    def get_htmls(url, max_try_times):
+        try_time = 1
+        def get_html_raw(url, try_time):
+            if try_time <= max_try_times:
+                try:
+                    driver.get(url)
+                    sleep(try_time)
+                    driver.find_element_by_id('ridi_c1')  # check if texts are loaded or not
+                    htmls = driver.find_elements_by_tag_name('article')
+                    return htmls
+                except:
+                    htmls = get_html_raw(url=url,try_time=try_time+1)
+                    return htmls
+            else:
+                input('Plz login again (or) Buy books')
+        htmls = get_html_raw(url, try_time)
         return htmls
 
 
@@ -44,9 +42,12 @@ def get_content(user_id, user_pw, booknumber):
 
     f = open('book_{}.txt'.format(booknumber), 'w+')
 
+    #input max_retry_times
+    max_try_times = 3
+
     for book in book_list:
         url = str(book).replace('\n','')
-        htmls = get_htmls(url)
+        htmls = get_htmls(url, max_try_times)
         for html in htmls:
             f.write(html.text + '\n{}\n'.format('-' * 10))
 
