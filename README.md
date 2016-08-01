@@ -1,6 +1,13 @@
 # dailyparser
+- 생활에 필요한 WebParser들을 Apache라이센스로 공개합니다.
+- 자세한 라이센스는 LICENSE파일을 참고하세요.
+- 소스를 받아 사용함에 있어서 따르는 제약은 컨텐츠 제공업체의 표준계약에 따르며,
+  사용 지역에 따른 법률을 준수하시길 권장합니다.
+- 기본적으로 Python3에서 작동합니다.
 
 ## Ridibooks (리디북스)
+- Request, BeautifulSoup, Selenium을 사용합니다.
+- Firefox가 구동 시스템에 설치되어있어야 합니다. (크롬으로도 가능하지만 권장하지 않습니다.)
 - 리디북스의 연재 책을 텍스트 파일로 만들 수 있습니다.
 - 유의 사항은 다음과 같습니다.
   1. 책의 고유 번호(연재 리스트에 들어간 경우 주소창에 뜨는 10자리 숫자를 확인하면 됩니다.
@@ -37,7 +44,28 @@
     현재 이 경우, 콘솔(shell / terminal / cmd ..)에 '계속' 문구 출력 후 대기.
     로그인시 '로그인 유지' 선택할 경우 더이상 로그인 풀리지 않음.
 
-## KBDepositCheck(국민은행 빠른조회)
+## Joara (조아라)
+- Request와 BeautifulSoup을 사용합니다.
+- 조아라의 연재도서들을 텍스트 파일로 만들 수 있습니다.
+### 구현기능
+- 조아라 책의 고유 번호와 아이디, 비밀번호를 입력하면 자동으로 받아서 한 텍스트 파일로 합쳐줍니다.
+### 사용법
+```
+    $ git clone https://github.com/Beomi/dailyparser.git
+      (git을 사용하지 않는 경우에는 소스를 압축파일로 받으시면 됩니다.)
+    $ cd dailyparser
+    $ pip install -r requirements.txt
+    (virtualenv / pyvenv 사용을 추천합니다.)
+    $ cd joara
+    $ python parsing.py
+      JOARA ID: (조아라 아이디 입력)
+      JOARA PW: (조아라 비밀번호 입력)
+      JOARA BOOKNUM : (책 번호 입력)
+
+      퍼센트가 올라가며 파싱이 완료됩니다.
+```
+
+## KBDepositCheck (국민은행 빠른조회)
 ### 구현기능
 1. KB은행 간편조회에 등록된 계좌에 한해 사용가능
 2. 사용자가 일정의 재설정 가능
