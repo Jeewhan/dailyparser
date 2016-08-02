@@ -52,8 +52,10 @@
 ### 개요
 - Request와 BeautifulSoup을 사용합니다.
 - 조아라의 연재도서들을 텍스트 파일로 만들 수 있습니다.
+
 ### 구현기능
 - 조아라 책의 고유 번호와 아이디, 비밀번호를 입력하면 자동으로 받아서 한 텍스트 파일로 합쳐줍니다.
+
 ### 사용법
 ```
     $ git clone https://github.com/Beomi/dailyparser.git
