@@ -66,12 +66,12 @@ if __name__=='__main__':
     text = make_txt(booknum, payload)
     f = open('book_{}.txt'.format(booknum),'w+')
     for i in text:
-        f.write(i)
+        f.write(i.strip())
     f.close()
     f = open('book_{}.txt'.format(booknum),'r')
     rd = f.readlines()
     f.close()
-
+    f = open('book_{}.txt'.format(booknum),'w+')
     for i in rd:
         if i != '\n':
             f.write(i)
