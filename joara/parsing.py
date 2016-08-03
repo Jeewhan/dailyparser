@@ -3,9 +3,25 @@ from bs4 import BeautifulSoup as bs
 
 
 def _get_content_how_many(booknum):
+    input_book_type = input('''
+    책의 종류에 따라 번호를 눌러주세요. (단, 숫자만 입력해주세요.)
+    1 : 프리미엄
+    2 : 일반연재
+    3 : 노블레스
+    ''')
+    if input_book_type = '1':
+        book_type = 'premium_new'
+    elif input_book_type = '2':
+        book_type = 'literature'
+    elif input_book_type = '3':
+        book_type = 'nobless'
+    else:
+        raise Exception('정확한 책의 종류가 아닙니다.')
+
+
     html = requests.get(
-        'http://www.joara.com/premium_new/book_intro.html?book_code={}'.format(
-            booknum)
+        'http://www.joara.com/{}/book_intro.html?book_code={}'.format(
+            book_type, booknum)
         )
     soup = bs(html.text, 'html.parser')
     urls = soup.select(
