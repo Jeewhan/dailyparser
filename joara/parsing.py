@@ -9,11 +9,11 @@ def _get_content_how_many(booknum):
     2 : 일반연재
     3 : 노블레스
     ''')
-    if input_book_type = '1':
+    if input_book_type == '1':
         book_type = 'premium_new'
-    elif input_book_type = '2':
+    elif input_book_type == '2':
         book_type = 'literature'
-    elif input_book_type = '3':
+    elif input_book_type == '3':
         book_type = 'nobless'
     else:
         raise Exception('정확한 책의 종류가 아닙니다.')
