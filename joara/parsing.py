@@ -3,12 +3,11 @@ from bs4 import BeautifulSoup as bs
 
 
 def _get_content_how_many(booknum):
-    input_book_type = input('''
-    책의 종류에 따라 번호를 눌러주세요. (단, 숫자만 입력해주세요.)
-    1 : 프리미엄
-    2 : 일반연재
-    3 : 노블레스
-    ''')
+    input_book_type = input('''책의 종류에 따라 번호를 눌러주세요. (단, 숫자만 입력해주세요.)
+1 : 프리미엄
+2 : 일반연재
+3 : 노블레스
+책 종류: ''')
     if input_book_type == '1':
         book_type = 'premium_new'
     elif input_book_type == '2':
@@ -27,6 +26,7 @@ def _get_content_how_many(booknum):
     urls = soup.select(
         'div.work_view > span.select'
     )
+    #TODO: change urls selection declare to each options..
     if len(urls) > 1:
         raise Exception("There's more info in page!")
     else:
