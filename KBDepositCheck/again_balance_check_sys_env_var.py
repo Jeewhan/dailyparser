@@ -15,30 +15,30 @@ def check_balance(residentnumber, bankid, password, accountnumber):
         endday= date.today().strftime("%Y%m%d"), #조회마감일/오늘
         accountnumber= accountnumber #계좌번호
     )
+    with requests.Session() as s:
+        res = s.get(url)
 
-    res = requests.get(url)
+        if res == '':
+            raise Exception('반환받은 결과가 없음')
 
-    if res == '':
-        raise Exception('반환받은 결과가 없음')
+        html = res.text
+        #print(html)
+        soup = bs(html, 'html.parser')
 
-    html = res.text
-    #print(html)
-    soup = bs(html, 'html.parser')
+        infos = soup.select('tr[align:center] > td')
 
-    infos = soup.select('tr[align:center] > td')
+        item_quantitys = int(len(infos)) / 9
 
-    item_quantitys = int(len(infos)) / 9
-
-    item_seq = 0
-    transactions = []
-    while item_seq < item_quantitys:
-        transaction = []
-        seq = infos[item_seq*9:item_seq*9+8]
-        for i in seq:
-            transaction.append(i.text.strip())
-        transactions.append(transaction)
-        item_seq += 1
-    return transactions
+        item_seq = 0
+        transactions = []
+        while item_seq < item_quantitys:
+            transaction = []
+            seq = infos[item_seq*9:item_seq*9+8]
+            for i in seq:
+                transaction.append(i.text.strip())
+            transactions.append(transaction)
+            item_seq += 1
+        return transactions
 
 
 if __name__=='__main__':
@@ -49,12 +49,13 @@ if __name__=='__main__':
         accountnumber= environ['ACCOUNTNUMBER']
     )
     for info in results:
-        transact_time = info[0].strip()
+        transact_date = info[0].strip()[:10]
+        transact_time = info[0].strip()[10:]
         transact_by = info[2].strip()
         if info[4] != '0':
             transact_amount = "-" + info[4].strip()
         else:
             transact_amount = "+" + info[5].strip()
-        print("거래시기: {}\n​거래처: {}\n거래금액: {}\n---------------".format(
-            transact_time, transact_by, transact_amount
+        print("거래일시: {}\n거래시각: {}\n​거래처: {}\n거래금액: {}".format(
+            transact_date, transact_time, transact_by, transact_amount
          ))
