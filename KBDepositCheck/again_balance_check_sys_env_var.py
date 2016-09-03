@@ -14,7 +14,7 @@ class Transaction(object):
             self.bankid = environ['BANKID']
             self.password = environ['BANKPW']
             self.accountnumber = environ['ACCOUNTNUMBER']
-        except:
+        except KeyError:
             print("TODO: you should export envs before execute!")
 
     @property
