@@ -4,7 +4,7 @@
 2. 사용자가 일정의 재설정 가능
 3. python3에 구현 맞춰져 있음
 4. 환경변수로 접근해서 사용하게 됨
-  /etc/bash.bashrc 파일에
+  ~/.bashrc 파일에 (zsh 의경우 ~/.zshrc 파)
 ```
 #ENV for BANK PY
 export RESIDENTNUMBER=주민번호 뒤7자리
@@ -15,9 +15,16 @@ export ACCOUNTNUMBER=계좌번호
   이같은 형식으로 입력후 사용 가능
   bash를 재실행 하지 않고 적용하기 위해서라면
 ```
-source /etc/bash.bashrc
+$source ~/.bashrc (혹은 $source ~./.zshrc)
 ```
-  명령어로 사용 가능.
+  명령어로 바로 로딩이 가능합니다.
+5. 외부 라이브러리로서 사용할 때
+```
+from KBDepositCheck.CheckBalance import Transaction
+
+#사용할경우
+Transaction.
+```
 
 
 ## 추가예정기능
