@@ -18,18 +18,31 @@ class Transaction(object):
 
     @property
     def check_transactions(self):
-        url = 'https://obank.kbstar.com/quics?asfilecode=524517&_FILE_NAME=KB_거래내역빠른조회.html&USER_TYPE=02&주민사업자번호=000000{residentnumber}&고객식별번호={bankid}&조회구분=2&_LANG_TYPE=KOR&비밀번호={password}&조회시작일={startday}&응답방법=2&다음거래일련번호키=&조회종료일={endday}&다음거래년월일키=&계좌번호={accountnumber}'.format(
-            residentnumber= self.residentnumber, #주민번호 뒷자리
-            bankid= self.bankid.upper(), #인터넷 뱅킹 ID
-            password= self.password, #계좌 비밀번호
-            startday= (date.today()-timedelta(1)).strftime("%Y%m%d"), #조회시작일/어제
-            endday= date.today().strftime("%Y%m%d"), #조회마감일/오늘
-            accountnumber= self.accountnumber #계좌번호
+        url = 'https://obank1.kbstar.com/quics?page=C025255&cc=b028364:b028702'
+        payload = dict(
+            KEYPAD_TYPE_139833834814='3',
+            
+            
+            고객ID= self.bankid.upper(), #인터넷 뱅킹 ID
+            비밀번=self.password, #계좌 비밀번호
+            조회시작년='2016',
+            조회시작월='12',
+            조회시작일='03',
+            조회끝년='2016',
+            조회끝월='12',
+            조회끝일='04',
+            검색구분='1',
+            빠른조회='Y',
+            조회구분='2',
+            응답방법='2',
+            #startday= (date.today()-timedelta(1)).strftime("%Y%m%d"), #조회시작일/어제
+            #endday= date.today().strftime("%Y%m%d"), #조회마감일/오늘
+            조회계좌=self.accountnumber #계좌번호
         )
         with requests.Session() as s:
-            res = s.get(url)
+            res = s.post(url, data=payload)
             if res == '':
-                raise Exception('반환받은 결과가 없음')
+                raise Exception('반환받은 결과가 없음')
             html = res.text
             print(html)
             soup = bs(html, 'html.parser')
@@ -68,3 +81,7 @@ class Transaction(object):
                 'amount': transact_amount
             })
         return result_dics
+
+if __name__=='__main__':
+    tr = Transaction()
+    print(tr.check_transactions)
