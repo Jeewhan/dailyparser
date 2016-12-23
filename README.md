@@ -11,17 +11,16 @@
 ## Ridibooks (리디북스)
 ### 개요
 - Request, BeautifulSoup, Selenium을 사용합니다.
-- Firefox가 구동 시스템에 설치되어있어야 합니다. (크롬으로도 가능하지만 권장하지 않습니다.)
+- PhantomJS의 Webdriver2.1.1([Windows](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-windows.zip)/[MacOS](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-macosx.zip)/[Linux](https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2))를 받으셔야 합니다.
 - 리디북스의 연재 책을 텍스트 파일로 만들 수 있습니다.
 - 유의 사항은 다음과 같습니다.
   1. 책의 고유 번호(연재 리스트에 들어간 경우 주소창에 뜨는 10자리 숫자를 확인하면 됩니다.
     (http://ridibooks.com/v2/Detail?id=0000000000 의 경우 제일 0000000000)
   2. 구매한/대여한 책(단, 연재본의 경우 대여시스템이 없으므로 현재는 구매한 책)만 받을 수 있습니다.
-  3. 파이어폭스의 최신버전이 설치되어있어야 합니다.
-  4. Python3.4 / 3.5 이상의 버전(혹은 2.7)이 설치되어있어야 합니다.
+  3. Python3.4 / 3.5 이상의 버전(혹은 2.7)이 설치되어있어야 합니다.
     (단, 2.7에서는 unicode error가 발생할 수 있습니다.)
-  5. OS X El Capitan에서 정상 작동합니다.
-  6. Windows의 경우 시스템 설정에 따라 Unicode Error가 발생할 수 있습니다.
+  4. OS X El Capitan에서 정상 작동합니다.
+  5. Windows의 경우 시스템 설정에 따라 Unicode Error가 발생할 수 있습니다.
 - pip모듈은 requirements.txt로 설치가 가능합니다.
 - booklist\_parser.py 파일 실행 후 contents\_parser.py를 실행합니다.
 - booklist\_parser.py 파일은 로그인이 필요하지 않으며, contents\_parser.py는 로그인이 필요합니다.
